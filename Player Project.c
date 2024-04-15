@@ -4,12 +4,12 @@
 typedef struct Player
 {
 	char name[20];
-	int noMatches,runs,wickets,jerseyNumber;            //user build-in structure having data type Player
+	int noMatches,runs,wickets,jerseyNumber;            
 }Player;
 
 void storeInfo(Player*,int);
 void displayInfo(Player*,int);
-void increaseMemory(Player*,int);
+Player* increaseMemory(Player*,int);
 void noIndex(Player*,int);
 void displayPlayer1(Player*,int);
 void hardCoaded(Player*);
@@ -25,13 +25,13 @@ void sortAscWickets(Player*);
 void sortAscJerseyNo(Player*);
 int checkRepeat(Player*,int,int);
 
-int size = 7;										//hard coaded size value given globally
-int ctr = 0;										//counter(ctr) declare globally having initial value 0
+int size = 7;										
+int ctr = 0;										
 
 void main()
 {
-	Player* play = (Player*)malloc(sizeof(Player)*size);        //create array of name play using malloc() having data base Player 
-	hardCoaded(play);											//some hard coaded details entered
+	Player* play = (Player*)malloc(sizeof(Player)*size);        
+	hardCoaded(play);											
 	int ch;
 	do   
 	{
@@ -42,19 +42,44 @@ void main()
 		{
 			case 1:
 				{
-					(ctr<size)?storeInfo(play,ctr):increaseMemory(play,ctr);  		//calling 'storeInfo' fun to store data by user
+					(ctr<size)?storeInfo(play,ctr):increaseMemory(play,ctr);  		
+					if(ctr<size)
+					{
+						storeInfo(play,ctr);
+					}
+					else 
+					{
+						printf("\nYou can not enter player information\n");
+						char choice;
+						printf("\nDo you want to increase memory to insert details(y/n): ");
+						fflush(stdin);
+						scanf("%c",&choice);
+							if(choice == 'y' || choice == 'Y')
+							{
+								play = increaseMemory(play,ctr);
+								storeInfo(play,ctr);
+							}						
+							else if(choice == 'n' || choice == 'N')
+							{
+								printf("\nok...You can not insert more players\n");
+							}
+							else
+							{
+								printf("\nEnter valid choice\n");
+							}
+					}
 				}
 				break;
 			case 2:
 				{
-					(ctr==0)?noIndex(play,ctr):displayInfo(play,ctr);				//calling 'displayInfo' fun to display data present in array
+					(ctr==0)?noIndex(play,ctr):displayInfo(play,ctr);				
 				}
 				break;
 			case 3:
 				{
 					if(ctr==0)
 					{
-						noIndex(play,ctr);    										 //calling 'noindex' fun if ctr value is 0				
+						noIndex(play,ctr);    														
 					}
 					else
 					{
@@ -68,8 +93,8 @@ void main()
 							printf("\nEnter Jersey number of player you want to search: ");
 							scanf("%d",&jn);
 							
-							int i = searchByJerseyNo(play,jn);                                            //calling 'searchByJerseyNo' to search player 
-								(i >= 0)?displayPlayer1(play,i):printf("\nPlayer not found \n");       //calling 'displayPlayer1' fun to show only searched player data
+							int i = searchByJerseyNo(play,jn);                                            
+								(i >= 0)?displayPlayer1(play,i):printf("\nPlayer not found \n");       
 
 						}
 						if(choice == 2)
@@ -79,8 +104,8 @@ void main()
 							fflush(stdin);
 							gets(name);
 								
-							int i = searchByName(play,name);										//calling 'searchByName' to search player
-								(i >= 0)?displayPlayer1(play,i):printf("\nPlayer not found \n");		//calling 'displayPlayer1' fun to show only searched player data
+							int i = searchByName(play,name);										
+								(i >= 0)?displayPlayer1(play,i):printf("\nPlayer not found \n");		
 						}   
 						else if(choice > 2)
 						{
@@ -93,7 +118,7 @@ void main()
 					{
 						if(ctr==0)
 						{
-							noIndex(play,ctr);    										//calling 'noindex' fun if ctr value is 0			
+							noIndex(play,ctr);    													
 						}
 						else
 						{
@@ -107,11 +132,11 @@ void main()
 								printf("\nEnter Jersey number of player you want to remove: ");
 								scanf("%d",&jn);
 								
-								int i = searchByJerseyNo(play,jn);							//calling 'searchByJerseyNo' to search player 
+								int i = searchByJerseyNo(play,jn);							 
 								{
 									if(i >= 0)
 									{
-										removePlayer(play,i);							   //calling 'removePlayer' to remove player 
+										removePlayer(play,i);							   
 										printf("\nPlayer removed Successfully\n");
 									}
 									else if(i==-1)
@@ -127,11 +152,11 @@ void main()
 								fflush(stdin);
 								gets(name);
 									
-								int i = searchByName(play,name);								//calling 'searchByJerseyNo' to search player 
+								int i = searchByName(play,name);								
 								{
 									if(i >= 0)
 									{
-										removePlayer(play,i);									//calling 'removePlayer' to remove player 
+										removePlayer(play,i);									 
 										printf("\nPlayer removed Successfully\n");				
 									}
 									else if(i==-1)
@@ -159,8 +184,8 @@ void main()
 							printf("\nEnter the Jersey number of player to update: ");
 							scanf("%d",&jn);
 					
-							int i = searchByJerseyNo(play,jn);										//calling 'searchByJerseyNo' to search player 
-								(i>=0)?updatePlayer(play,i):printf("\nPlayer not found\n");			//calling 'updatePlayer' to update player information
+							int i = searchByJerseyNo(play,jn);										
+								(i>=0)?updatePlayer(play,i):printf("\nPlayer not found\n");			
 						}
 						if(choice == 2)
 						{
@@ -169,8 +194,8 @@ void main()
 							fflush(stdin);
 							gets(name);
 										
-							int i = searchByName(play,name);											//calling 'searchByJerseyNo' to search player 
-								(i>=0)?updatePlayer(play,i):printf("\nPlayer not found\n");				//calling 'updatePlayer' to update player information
+							int i = searchByName(play,name);											
+								(i>=0)?updatePlayer(play,i):printf("\nPlayer not found\n");				
 						}
 						else if(choice > 2)
 						{
@@ -192,7 +217,7 @@ void main()
 									printf("\n1.Sort player by Runs \n2.Sort player by wickets  \n3.Sort player by Jersey Number \n\nEnter your choice: ");
 									scanf("%d",&choice);
 									
-									(choice == 1)?sortByRuns(play):(choice == 2)?sortByWickets(play):(choice == 3)?sortByJerseyNo(play):printf("\nInvalid Choice\n");  //calling 'sort' fun to sort player by wickets,run,jersey no											
+									(choice == 1)?sortByRuns(play):(choice == 2)?sortByWickets(play):(choice == 3)?sortByJerseyNo(play):printf("\nInvalid Choice\n");  										
 								}
 								break;
 							case 2:
@@ -239,7 +264,7 @@ void storeInfo(Player* play,int i)
 	else
 	{
 		printf("\nEnter Player Name: ");
-		fflush(stdin);																//to clear buffer
+		fflush(stdin);																
 		gets(play[i].name);
 			
 		printf("\nEnter number of matches player played: ");
@@ -270,34 +295,17 @@ void displayInfo(Player* play,int ctr)
 		printf("\n+---------------------------------------------------------------------------+");
 }
 
-void increaseMemory(Player* play,int ctr)
-{
-	printf("\nYou can not enter player information\n");
-	char choice;
-	printf("\nDo you want to increase memory to insert details(y/n): ");
-	fflush(stdin);
-	scanf("%c",&choice);
-	if(choice == 'y' || choice == 'Y')
-	{
+Player* increaseMemory(Player* play,int ctr)
+{	
 		int n;
 		printf("\nHow much memory you want to increase: ");
 		scanf("%d",&n);
 		size = size + n;
-		play = (Player*)realloc(play,(size)*sizeof(Player));                    //calling 'realloc' fun to increase the size of array
-		storeInfo(play,ctr);													//calling 'storeinfo' fun to store info
-	}
-	else if(choice == 'n' || choice == 'N')
-	{
-		printf("\nok...You can not insert more players\n");
-	}
-	else
-	{
-		printf("\nEnter valid choice\n");
-	}
+		play = (Player*)realloc(play,(size)*sizeof(Player));                    	
+		return play;
 }
 
-void noIndex(Player*play,int ctr)									//fun if counter value is 0
-{
+void noIndex(Player*play,int ctr)									
 	printf("\nThere is no any information to show");
 	char choice;
 	printf("\nDo yo want to insert Information(y/n): ");
@@ -307,7 +315,7 @@ void noIndex(Player*play,int ctr)									//fun if counter value is 0
 	(choice == 'y' || choice == 'Y')?storeInfo(play,ctr):(choice == 'n' || choice == 'N')?printf("\nok...If you want to insert information choose choice 1\n"):printf("\nEnter valid choice\n");
 }
 
-int searchByJerseyNo(Player* play,int jn)                                    //call fun 'searchByJerseyNo' to search by jersey num
+int searchByJerseyNo(Player* play,int jn)                                    
 {		
 	for(int i=0; i<ctr; i++)
 	{
@@ -319,7 +327,7 @@ int searchByJerseyNo(Player* play,int jn)                                    //c
 	return -1;	
 }
 
-int searchByName(Player* play,char* name)                                    //call fun 'searchByName' to search by jersey name
+int searchByName(Player* play,char* name)                                    
 {
 	for(int i=0; i<ctr; i++)
 	{
@@ -372,7 +380,7 @@ void removePlayer(Player* play,int i)
 	{
 		play[j] = play[j+1];
 	}
-	ctr--;												//counter value decrased because one/searched index removed	
+	ctr--;													
 }
 
 void updatePlayer(Player* play,int i)
@@ -380,34 +388,34 @@ void updatePlayer(Player* play,int i)
 	int m;													
 	printf("\nEnter how many matches you want to add: ");
 	scanf("%d",&m);
-	play[i].noMatches = play[i].noMatches + m;             //adding new no of matches in previous count of matches
+	play[i].noMatches = play[i].noMatches + m;             
 			
 	int r;
 	printf("\nEnter how many runs you want to add: ");
 	scanf("%d",&r);
-	play[i].runs = play[i].runs + r;						 //adding new no of runs in previous count of runs
+	play[i].runs = play[i].runs + r;						 
 							
 	int w;
 	printf("\nEnter how many wickets you want to add: ");
 	scanf("%d",&w);
-	play[i].wickets = play[i].wickets + w;					 //adding new no of wickets in previous count of wickets
+	play[i].wickets = play[i].wickets + w;					 
 					
-	displayPlayer1(play,i);										//display updated player info
+	displayPlayer1(play,i);										
 }
 
-void sortByRuns(Player* play)								//fun to descending sort players by euns
+void sortByRuns(Player* play)								
 {
-	Player cricket[size];									//create new array to keep original array as it is
+	Player cricket[size];									
 	for(int i=0; i<ctr; i++)
 	{
-		cricket[i] = play[i];									//assign original array value to duplicate array
+		cricket[i] = play[i];									
 	}
 	
 	for(int i=0; i<ctr; i++)
 	{
 		for(int j=i+1; j<ctr; j++)
 		{
-			if(cricket[i].runs  < cricket[j].runs)					//sort duplicated array
+			if(cricket[i].runs  < cricket[j].runs)					
 			{
 				Player temp = cricket[i];
 				cricket[i] = cricket[j];
@@ -415,7 +423,7 @@ void sortByRuns(Player* play)								//fun to descending sort players by euns
 			}
 		}
 	}
-	displayInfo(cricket,ctr);										//display duplicated array
+	displayInfo(cricket,ctr);										
 }
 
 void sortByWickets(Player* play)
@@ -466,17 +474,17 @@ void sortByJerseyNo(Player* play)
 
 void sortAscRuns(Player* play)
 {
-	Player cricket[size];									//create new array to keep original array as it is
+	Player cricket[size];									
 	for(int i=0; i<ctr; i++)
 	{
-		cricket[i] = play[i];									//assign original array value to duplicate array
+		cricket[i] = play[i];									
 	}
 	
 	for(int i=0; i<ctr; i++)
 	{
 		for(int j=i+1; j<ctr; j++)
 		{
-			if(cricket[i].runs  > cricket[j].runs)					//sort duplicated array
+			if(cricket[i].runs  > cricket[j].runs)					
 			{
 				Player temp = cricket[i];
 				cricket[i] = cricket[j];
@@ -484,7 +492,7 @@ void sortAscRuns(Player* play)
 			}
 		}
 	}
-	displayInfo(cricket,ctr);										//display duplicated array	
+	displayInfo(cricket,ctr);											
 }
 
 void sortAscWickets(Player* play)
