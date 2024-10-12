@@ -1,20 +1,45 @@
 # Player-Management-System
-Player Management System C
 
-Problem Statement:
-A Player Management System is required to efficiently organize and manage information about cricket players. The system should support various operations, including adding, removing, searching, updating, displaying all player records, and showcasing the top 3 players based on runs and wickets. The system should handle player attributes, including Jersey Number, Name, Runs, Wickets, and Matches played.
+  This is a C program that allows users to manage information about players, including details such as jersey number, name, number of matches played, runs scored, and wickets taken. The program supports functionalities like adding, displaying, searching, updating, and removing player records.
 
-Key Requirements:
+**Features**
+- Add Player Information: Insert details of players, including jersey number, name, matches played, runs, and wickets.
+- Display Player Information: View all player records.
+- Search Player: Find players by jersey number or name.
+- Remove Player: Delete player records based on jersey number or name.
+- Update Player Information: Modify existing player details.
+- Sort Players: Sort player records by runs, wickets, or jersey number in ascending or descending order.
 
-•Add Player: The system should allow for the addition of new players with their respective attributes, including Jersey Number, Player Name, Runs, Wickets, and Matches played.
+**Prerequisites**
+- C compiler (e.g., GCC)
+- Basic understanding of C programming and data structures
 
-•Remove Player: Users should be able to remove players from the system, ensuring that associated data is deleted while preserving data integrity.
+**Usage**
 
-•Search Player: The system should facilitate player retrieval by both Jersey Number and Player Name, enabling users to quickly access player details.
+Upon running the program, you will see a menu with the following options:
+- Insert player Information
+- Display player Information
+- Search Player
+- Remove Player
+- Update Player Information
+- Sort player
+- Exit
 
-•Update Player Data: Users must have the ability to update a player's Runs, Wickets, and Matches played, providing a means for keeping player information accurate and up-to-date.
+**Code Structure**
 
-•Display Sorted Players: The system should provide a feature to display the sorted player information based on minimum/maximum runs and minimum/maximum wickets, allowing users to see the leading performers in the team.
+Player Structure:
+  
+  - Defines the player's details.
 
-•Display All Players: The system should offer the option to display details of all the players in the database, enabling users to access the complete list of players.
+Functionality:
+- storeInfo: Store player information.
+- displayInfo: Display all player records.
+- searchByName: Search for a player by name.
+- searchByJerseyNo: Search for a player by jersey number.
+- removePlayer: Remove a player from records.
+- updatePlayer: Update player details.
+- sortByRuns, sortByWickets, sortByJerseyNo: Sort players by specified criteria.
 
+**Memory Management**
+ 
+  The program dynamically allocates memory for player records and supports increasing memory allocation as needed.
